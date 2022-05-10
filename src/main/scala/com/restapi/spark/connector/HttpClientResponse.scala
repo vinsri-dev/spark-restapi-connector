@@ -1,4 +1,13 @@
 package com.restapi.spark.connector
 
-
-case class RestResponse(RequestUrl :String, httpStausCode:String,responseBody:String,startTimeUTC:String,durationMs:Long,retryCount:Int,hostName:String)
+/**
+ * Http Client response class. Object of this class is created with response from http request
+ * @param RequestUrl
+ * @param httpStatusCode
+ * @param responseBody
+ * @param startTimeUTC
+ * @param durationMs
+ * @param retryCount
+ * @param hostName
+ */
+case class HttpClientResponse(RequestUrl :String, httpStatusCode:String, responseBody:String, startTimeUTC:String, durationMs:Long, retryCount:Int, hostName:String)

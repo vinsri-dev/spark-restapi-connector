@@ -2,7 +2,7 @@ package com.restapi.spark.connector
 
 import play.api.libs.json.{JsObject, Json}
 
-class BasicExampleTest extends BaseTest {
+class BasicAuthTests extends BaseTest {
 
   /**
    * Basic authentication happy scenario
@@ -46,7 +46,8 @@ class BasicExampleTest extends BaseTest {
          |ResourceUriProperty "Url",
          |BasicAuthUserName "$basicAuthUserName",
          |BasicAuthPassword "$basicAuth_P_k_S_e_W",
-         |RestCall_AuthenticationType "BasiC"
+         |RestCall_AuthenticationType "BasiC",
+         |RestCall_RequestHeaders "content-type:application/json"
          |)""".stripMargin
     Server.sparkSession.sql(tempView)
 
