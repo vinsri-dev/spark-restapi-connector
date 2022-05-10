@@ -167,8 +167,8 @@ class RestClient(private val config: Config
   def getBasicAuthToken(): String = {
 
     //Reading Basic authentication username and password from connector properties
-    val userName = config("BasicAuthUserName").toString
-    val password = config("BasicAuthPassword").toString
+    val userName = config("BasicAuth_UserName").toString
+    val password = config("BasicAuth_Password").toString
 
     "Basic " ++ Base64.encode((userName ++ ":" ++ password).getBytes("UTF-8"))
 

@@ -7,13 +7,13 @@ class BasicAuthTests extends BaseTest {
   /**
    * Basic authentication happy scenario
    */
-  "Basic : Calling RestApi Default Source with BasicAuthUserName" should " pass" in {
+  "Basic : Calling RestApi Default Source with BasicAuth_UserName" should " pass" in {
 
     val spark2 = Server.sparkSession
     import spark2.implicits._
 
     //Random basic auth username and password
-    val basicAuthUserName = s"User_${getRandomString}"
+    val BasicAuth_UserName = s"User_${getRandomString}"
     val basicAuth_P_k_S_e_W = s"Password_${getRandomString}"
 
     val inputViewName = "TestPostAPI_" + getRandomString
@@ -23,8 +23,8 @@ class BasicAuthTests extends BaseTest {
     //and basic auth token passed by connector
 
     val inputDF = Seq(
-      (s"https://httpbin.org/basic-auth/$basicAuthUserName/$basicAuth_P_k_S_e_W", "correlationid1"),
-      (s"https://httpbin.org/basic-auth/$basicAuthUserName/$basicAuth_P_k_S_e_W", "correlationid2")
+      (s"https://httpbin.org/basic-auth/$BasicAuth_UserName/$basicAuth_P_k_S_e_W", "correlationid1"),
+      (s"https://httpbin.org/basic-auth/$BasicAuth_UserName/$basicAuth_P_k_S_e_W", "correlationid2")
     ).toDF("Url", "CorrelationId")
 
     inputDF.createOrReplaceTempView(inputViewName)
@@ -44,8 +44,8 @@ class BasicAuthTests extends BaseTest {
          |Table "$inputViewName",
          |CorrelationIdProperty "CorrelationId",
          |ResourceUriProperty "Url",
-         |BasicAuthUserName "$basicAuthUserName",
-         |BasicAuthPassword "$basicAuth_P_k_S_e_W",
+         |BasicAuth_UserName "$BasicAuth_UserName",
+         |BasicAuth_Password "$basicAuth_P_k_S_e_W",
          |RestCall_AuthenticationType "BasiC",
          |RestCall_RequestHeaders "content-type:application/json"
          |)""".stripMargin
@@ -66,23 +66,23 @@ class BasicAuthTests extends BaseTest {
     //generated usernames
 
     val actualUserName1 = corId1Values.get("user").get.replaceAll("\"","")
-    assert(actualUserName1.contentEquals(basicAuthUserName))
+    assert(actualUserName1.contentEquals(BasicAuth_UserName))
 
     val actualUserName2= corId2Values.get("user").get.replaceAll("\"","")
-    assert(actualUserName2.contentEquals(basicAuthUserName))
+    assert(actualUserName2.contentEquals(BasicAuth_UserName))
   }
 
   /**
    * Basic authentication test case failed scenario with invalid password. Since "RestCall_FailAfterMaxRetries" is set to "true",
    * expecting an exception.
    */
-  "Basic : Calling RestApi Default Source with BasicAuthUserName and wrong password" should " raise error as expected" in {
+  "Basic : Calling RestApi Default Source with BasicAuth_UserName and wrong password" should " raise error as expected" in {
 
     val spark2 = Server.sparkSession
     import spark2.implicits._
 
     //Random basic auth username and password
-    val basicAuthUserName = s"User_${getRandomString}"
+    val BasicAuth_UserName = s"User_${getRandomString}"
     val basicAuth_P_k_S_e_W = s"Password_${getRandomString}"
 
     val inputViewName = "TestPostAPI_" + getRandomString
@@ -92,8 +92,8 @@ class BasicAuthTests extends BaseTest {
     //and basic auth token passed by connector
 
     val inputDF = Seq(
-      (s"https://httpbin.org/basic-auth/$basicAuthUserName/wrongpassword", "correlationid1"),
-      (s"https://httpbin.org/basic-auth/$basicAuthUserName/$basicAuth_P_k_S_e_W", "correlationid2")
+      (s"https://httpbin.org/basic-auth/$BasicAuth_UserName/wrongpassword", "correlationid1"),
+      (s"https://httpbin.org/basic-auth/$BasicAuth_UserName/$basicAuth_P_k_S_e_W", "correlationid2")
     ).toDF("Url", "CorrelationId")
 
     inputDF.createOrReplaceTempView(inputViewName)
@@ -113,8 +113,8 @@ class BasicAuthTests extends BaseTest {
          |Table "$inputViewName",
          |CorrelationIdProperty "CorrelationId",
          |ResourceUriProperty "Url",
-         |BasicAuthUserName "$basicAuthUserName",
-         |BasicAuthPassword "$basicAuth_P_k_S_e_W",
+         |BasicAuth_UserName "$BasicAuth_UserName",
+         |BasicAuth_Password "$basicAuth_P_k_S_e_W",
          |RestCall_AuthenticationType "BasiC",
          |RestCall_FailAfterMaxRetries "true",
          |RestCall_FailureRetryIntervalSecs "2",
@@ -149,13 +149,13 @@ class BasicAuthTests extends BaseTest {
    * Basic authentication test case failed scenario with invalid password. Since "RestCall_FailAfterMaxRetries" is set to "false",
    * not expecting an exception but have the row in dataframe with error details.
    */
-  "Basic : Calling RestApi Default Source with BasicAuthUserName and wrong password" should " not raise error but captured as failed" in {
+  "Basic : Calling RestApi Default Source with BasicAuth_UserName and wrong password" should " not raise error but captured as failed" in {
 
     val spark2 = Server.sparkSession
     import spark2.implicits._
 
     //Random basic auth username and password
-    val basicAuthUserName = s"User_${getRandomString}"
+    val BasicAuth_UserName = s"User_${getRandomString}"
     val basicAuth_P_k_S_e_W = s"Password_${getRandomString}"
 
     val inputViewName = "TestPostAPI_" + getRandomString
@@ -165,8 +165,8 @@ class BasicAuthTests extends BaseTest {
     //and basic auth token passed by connector
 
     val inputDF = Seq(
-      (s"https://httpbin.org/basic-auth/$basicAuthUserName/wrongpassword", "correlationid1"),
-      (s"https://httpbin.org/basic-auth/$basicAuthUserName/$basicAuth_P_k_S_e_W", "correlationid2")
+      (s"https://httpbin.org/basic-auth/$BasicAuth_UserName/wrongpassword", "correlationid1"),
+      (s"https://httpbin.org/basic-auth/$BasicAuth_UserName/$basicAuth_P_k_S_e_W", "correlationid2")
     ).toDF("Url", "CorrelationId")
 
     inputDF.createOrReplaceTempView(inputViewName)
@@ -186,8 +186,8 @@ class BasicAuthTests extends BaseTest {
          |Table "$inputViewName",
          |CorrelationIdProperty "CorrelationId",
          |ResourceUriProperty "Url",
-         |BasicAuthUserName "$basicAuthUserName",
-         |BasicAuthPassword "$basicAuth_P_k_S_e_W",
+         |BasicAuth_UserName "$BasicAuth_UserName",
+         |BasicAuth_Password "$basicAuth_P_k_S_e_W",
          |RestCall_AuthenticationType "BasiC",
          |RestCall_FailAfterMaxRetries "false",
          |RestCall_FailureRetryIntervalSecs "2",
