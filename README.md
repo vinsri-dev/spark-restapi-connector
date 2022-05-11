@@ -11,6 +11,8 @@ There isn't connector available to connect to remote rest api endpoint to downlo
 
 The connector expects to pass table name or location to create a dataframe. Each row in dataframe is expected to have the end point uri to invoke and connector internally makes parallel calls based on properties mentioned. Once connector make the rest call, the details of the response are added to a new dataframe which is constructed by cloning the input dataframe.
 
+**Note : We also had a custom [json parser connector](https://github.com/vinsri-dev/spark-jsonparser-connector) to flatten column which has json string (Handles all complex structures).
+While using GET in rest api connector and if you wish to flatten the fetched json string, you can use this connector on top of the downloaded json column to parse and flatten.**
 
 ## Rest API Connector Properties
 
@@ -64,6 +66,19 @@ Step 3 :
 Querying the above created temp view, which should make calls to the ADF account and download the response based on the body and other properties specified for connector.
 
 ![screenshot](screenshots/BearerAuth/3.png)
+
+The "RestCall_Response" has the json string. If you wish to parse and flatten it further as rows and cols, you can use [json parser connector](https://github.com/vinsri-dev/spark-jsonparser-connector).
+
+
+**Step 4 : Parsing "RestCall_Response" using json parser connector.**
+
+![screenshot](screenshots/BearerAuth/4.png)
+
+**Using json parser connector, we can see the ADF properties expanded as columns or rows if collection is found in hierarchy.**
+
+![screenshot](screenshots/BearerAuth/5.png)
+
+
 
 ## Basic Authentication Example
 
