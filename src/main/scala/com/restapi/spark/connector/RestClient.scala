@@ -33,6 +33,7 @@ class RestClient(private val config: Config
     verb match {
       case "GET" => call(uri, accessToken, correlationId, headers,httpClient=>httpClient)
       case "POST" => call(uri, accessToken, correlationId, headers, httpClient => httpClient.post(data))
+      case "DELETE" => call(uri, accessToken, correlationId, headers, httpClient =>  httpClient.delete(data))
       case "PUT" => call(uri, accessToken, correlationId, headers, httpClient => httpClient.put(data))
     }
 

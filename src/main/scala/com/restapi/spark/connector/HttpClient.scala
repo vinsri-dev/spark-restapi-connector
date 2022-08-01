@@ -82,6 +82,18 @@ class HttpClient(url: String) {
   }
 
   /**
+   * Call DELETE in current http request
+   * @param data
+   * @return
+   */
+  def delete(data: String): HttpClient = {
+    if (data != null)
+      http = http.postData(data)
+    http = http.method("DELETE")
+    this
+  }
+
+  /**
    * Call PUT in current http request
    * @param data
    * @return
